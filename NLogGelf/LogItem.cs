@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace NLogGelf
         public string ShortMessage { get; set; }
 
         public string FullMessage { get; set; }
+
+        public Exception Exception { get; set; }
 
         public IDictionary<string, string> CustomFields { get; set; }
     }
