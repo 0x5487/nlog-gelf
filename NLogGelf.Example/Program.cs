@@ -8,7 +8,7 @@ namespace NLogGelf.Example
     {
         public static void Main()
         {
-            var _logger = new Logger(LogManager.GetLogger("example"));
+            var _logger = LogManager.GetLogger("example").ToGelfLogger();
             
             while (true)
             {
@@ -18,6 +18,7 @@ namespace NLogGelf.Example
                 item.RequestId = requestID;
                 item.ShortMessage = "short message";
                 item.FullMessage = "full message";
+                
 
                 _logger.Info(item);
                 Thread.Sleep(TimeSpan.FromSeconds(1));

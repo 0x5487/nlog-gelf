@@ -71,7 +71,9 @@
     <Compile Include="Core\Transports\Tcp\TcpTransportConfiguration.cs" />
     <Compile Include="Core\Transports\Udp\UdpTransport.cs" />
     <Compile Include="Core\Transports\Udp\UdpTransportConfiguration.cs" />
+    <Compile Include="INGelfLogger.cs" />
     <Compile Include="LoggerExtension.cs" />
+    <Compile Include="NGelfLogger.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Targets\GelfTargetBase.cs" />
