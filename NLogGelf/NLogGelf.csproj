@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.4\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -45,44 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\CoreExtentions.cs" />
-    <Compile Include="Core\Encoders\ChunkingEncoder.cs" />
-    <Compile Include="Core\Encoders\CompositeEncoder.cs" />
-    <Compile Include="Core\Encoders\GZipEncoder.cs" />
-    <Compile Include="Core\Encoders\IChunkedMessageIdGenerator.cs" />
-    <Compile Include="Core\Encoders\ITransportEncoder.cs" />
-    <Compile Include="Core\Encoders\MessageBasedIdGenerator.cs" />
-    <Compile Include="Core\GelfAdditionalFields.cs" />
-    <Compile Include="Core\GelfLevel.cs" />
-    <Compile Include="Core\GelfMessage.cs" />
-    <Compile Include="Core\GelfMessageBuilder.cs" />
-    <Compile Include="Core\GelfMessageSerializer.cs" />
-    <Compile Include="Core\SilentLogger.cs" />
-    <Compile Include="Core\SimpleJson.cs" />
-    <Compile Include="Core\Transports\BufferedTransport.cs" />
-    <Compile Include="Core\Transports\CannotConnectException.cs" />
-    <Compile Include="Core\Transports\DisconnectedException.cs" />
-    <Compile Include="Core\Transports\Http\HttpTransport.cs" />
-    <Compile Include="Core\Transports\Http\HttpTransportConfiguration.cs" />
-    <Compile Include="Core\Transports\ITransport.cs" />
-    <Compile Include="Core\Transports\RetryingTransport.cs" />
-    <Compile Include="Core\Transports\SendFailedException.cs" />
-    <Compile Include="Core\Transports\Tcp\TcpTransport.cs" />
-    <Compile Include="Core\Transports\Tcp\TcpTransportConfiguration.cs" />
-    <Compile Include="Core\Transports\Udp\UdpTransport.cs" />
-    <Compile Include="Core\Transports\Udp\UdpTransportConfiguration.cs" />
     <Compile Include="INGelfLogger.cs" />
     <Compile Include="LoggerExtension.cs" />
     <Compile Include="NGelfLogger.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Targets\GelfTargetBase.cs" />
-    <Compile Include="Targets\GelfTcpTarget.cs" />
-    <Compile Include="Targets\VerboseLogger.cs" />
+    <Compile Include="Targets\Tcp\FixedSizedQueue.cs" />
+    <Compile Include="Targets\Tcp\GelfTcpTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -30,7 +30,7 @@ namespace NLogGelf.Example
                 _logger.Error(requestID, "err...eerr..eeer.", ex);
                 _logger.Fatal(requestID, "fatal..fatal..fatal", ex);
 
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Thread.Sleep(TimeSpan.FromMilliseconds(10));
             }
         }
     }
