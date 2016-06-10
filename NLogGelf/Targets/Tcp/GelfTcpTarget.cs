@@ -1,45 +1,45 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using NLog.Config;
 using NLogGelf.Targets.Tcp;
 
 namespace NLog.Targets.Gelf
 {
     [Target("GelfTcp")]
-    public sealed class GelfTcpTarget : Target
+    public sealed class GelfTcpTarget : TargetWithLayout
     {
         private TcpClient _tcpClient;
         private FixedSizedQueue<string> _queue;
-        private string _hostName, _facility;
-
-        public string Facility { get; set; }
-
-        public string RemoteAddress { get; set; }
-
-        public int RemotePort { get; set; }
+        private readonly string _hostName;
 
         public GelfTcpTarget()
         {
-            _hostName = Dns.GetHostName();
-            _queue = new FixedSizedQueue<string>(30000);
+            _hostName = Environment.MachineName;
             _tcpClient = new TcpClient();
 
             Facility = "gelf";
             RemoteAddress = "127.0.0.1";
             RemotePort = 12201;
+            MaxBufferedMessage = 30000;
+        }
 
+        public string Facility { get; set; }
+
+        public int MaxBufferedMessage { get; set; }
+
+        public string RemoteAddress { get; set; }
+
+        public int RemotePort { get; set; }
+
+        protected override void InitializeTarget()
+        {
+            base.InitializeTarget();
+            _queue = new FixedSizedQueue<string>(MaxBufferedMessage);
             SendMessage();
         }
 
@@ -49,7 +49,7 @@ namespace NLog.Targets.Gelf
             {
                 _queue.Enqueue(CreateGelfJsonFromLoggingEvent(logEvent));
             }
-            catch (Exception ex)
+            catch
             {
                 // ignored
             }
@@ -106,7 +106,7 @@ namespace NLog.Targets.Gelf
                         if (netStream.CanWrite)
                         {
                             var msgArray = Encoding.UTF8.GetBytes(message);
-                            var payload = new Byte[msgArray.Length + 1];
+                            var payload = new byte[msgArray.Length + 1];
                             msgArray.CopyTo(payload, 0);
                             payload[msgArray.Length] = new byte();
 
